@@ -1,20 +1,12 @@
 import Header from "./components/Header";
-import {
-  Box,
-  InputAdornment,
-  Stack,
-  TextField,
-  ToggleButton,
-  ToggleButtonGroup,
-  Tooltip,
-  Zoom,
-} from "@mui/material";
+import { Box, InputAdornment, Stack, TextField } from "@mui/material";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { ITodo } from "./types";
 import Todo from "./components/Todo";
 import CreateTodo from "./components/CreateTodo";
 import Joyride, { Step } from "react-joyride";
 import { ChangeEvent, useState } from "react";
+import ToggleButtons from "./components/ToggleButtons";
 
 const steps: Step[] = [
   {
@@ -145,55 +137,7 @@ function App() {
             }}
           />
           <Stack direction={"row"} spacing={{ sx: 1, sm: 5 }}>
-            <ToggleButtonGroup
-              color="primary"
-              value={filter}
-              exclusive
-              onChange={handleFilter}
-              aria-label="typed todos"
-              size="small"
-            >
-              <Tooltip
-                title="Show all todos"
-                arrow
-                TransitionComponent={Zoom}
-                className="second-step"
-              >
-                <ToggleButton
-                  value="All"
-                  aria-label="All"
-                  className="second-all-step"
-                >
-                  All
-                </ToggleButton>
-              </Tooltip>
-              <Tooltip
-                title="Show complited todos"
-                arrow
-                TransitionComponent={Zoom}
-              >
-                <ToggleButton
-                  value="Complited"
-                  aria-label="Complited"
-                  className="second-complited-step"
-                >
-                  Complited
-                </ToggleButton>
-              </Tooltip>
-              <Tooltip
-                title="Show unfinished todos"
-                arrow
-                TransitionComponent={Zoom}
-              >
-                <ToggleButton
-                  value="Unfinished"
-                  aria-label="Unfinished"
-                  className="second-unfinished-step"
-                >
-                  Unfinished
-                </ToggleButton>
-              </Tooltip>
-            </ToggleButtonGroup>
+            <ToggleButtons filter={filter} action={handleFilter}/>
             <CreateTodo action={createTodo} />
           </Stack>
         </Stack>
