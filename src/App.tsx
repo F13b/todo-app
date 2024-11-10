@@ -1,4 +1,3 @@
-import "./App.css";
 import Header from "./components/Header";
 import {
   Box,
@@ -14,7 +13,36 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { ITodo } from "./types";
 import Todo from "./components/Todo";
 import CreateTodo from "./components/CreateTodo";
+import Joyride, { Step } from "react-joyride";
 import { ChangeEvent, useState } from "react";
+
+const steps: Step[] = [
+  {
+    target: ".first-step",
+    content:
+      "This is the field for searching for your tasks. You can search for tasks by their name.",
+  },
+  {
+    target: ".second-step",
+    content: "And this is the task filtering panel.",
+  },
+  {
+    target: ".second-all-step",
+    content: "You can display all tasks.",
+  },
+  {
+    target: ".second-complited-step",
+    content: "And you can display only complete tasks.",
+  },
+  {
+    target: ".second-unfinished-step",
+    content: "Or just unfinished tasks.",
+  },
+  {
+    target: ".thrid-step",
+    content: "To create a new task, click on this button.",
+  },
+];
 
 function App() {
   const Todos: ITodo[] = [
@@ -79,10 +107,28 @@ function App() {
 
   return (
     <>
+      <Joyride
+        steps={steps}
+        continuous
+        showProgress
+        showSkipButton
+        styles={{
+          options: {
+            zIndex: 10000,
+            backgroundColor: "#f0f0f0",
+            primaryColor: "#00aaff",
+          },
+        }}
+      />
       <Header />
       <Box component={"main"} sx={{ width: "85%", m: "3rem auto 0 auto" }}>
-        <Stack sx={{ mb: "2rem" }} direction={"row"} spacing={5}>
+        <Stack
+          sx={{ mb: "2rem" }}
+          direction={{ xs: "column", sm: "row" }}
+          spacing={{ xs: 2, sm: 5 }}
+        >
           <TextField
+            className="first-step"
             size="small"
             label="Search"
             placeholder="Type something..."
@@ -98,46 +144,65 @@ function App() {
               },
             }}
           />
-          <ToggleButtonGroup
-            color="primary"
-            value={filter}
-            exclusive
-            onChange={handleFilter}
-            aria-label="typed todos"
-            size="small"
-          >
-            <Tooltip title="Show all todos" arrow TransitionComponent={Zoom}>
-              <ToggleButton value="All" aria-label="All">
-                All
-              </ToggleButton>
-            </Tooltip>
-            <Tooltip
-              title="Show complited todos"
-              arrow
-              TransitionComponent={Zoom}
+          <Stack direction={"row"} spacing={{ sx: 1, sm: 5 }}>
+            <ToggleButtonGroup
+              color="primary"
+              value={filter}
+              exclusive
+              onChange={handleFilter}
+              aria-label="typed todos"
+              size="small"
             >
-              <ToggleButton value="Complited" aria-label="Complited">
-                Complited
-              </ToggleButton>
-            </Tooltip>
-            <Tooltip
-              title="Show uncomplited todos"
-              arrow
-              TransitionComponent={Zoom}
-            >
-              <ToggleButton value="Uncomplited" aria-label="Uncomplited">
-                Uncomlited
-              </ToggleButton>
-            </Tooltip>
-          </ToggleButtonGroup>
-          <CreateTodo action={createTodo} />
+              <Tooltip
+                title="Show all todos"
+                arrow
+                TransitionComponent={Zoom}
+                className="second-step"
+              >
+                <ToggleButton
+                  value="All"
+                  aria-label="All"
+                  className="second-all-step"
+                >
+                  All
+                </ToggleButton>
+              </Tooltip>
+              <Tooltip
+                title="Show complited todos"
+                arrow
+                TransitionComponent={Zoom}
+              >
+                <ToggleButton
+                  value="Complited"
+                  aria-label="Complited"
+                  className="second-complited-step"
+                >
+                  Complited
+                </ToggleButton>
+              </Tooltip>
+              <Tooltip
+                title="Show unfinished todos"
+                arrow
+                TransitionComponent={Zoom}
+              >
+                <ToggleButton
+                  value="Unfinished"
+                  aria-label="Unfinished"
+                  className="second-unfinished-step"
+                >
+                  Unfinished
+                </ToggleButton>
+              </Tooltip>
+            </ToggleButtonGroup>
+            <CreateTodo action={createTodo} />
+          </Stack>
         </Stack>
         <Box>
           {todos
             .filter((item) => {
               if (filter === "Complited") {
                 return item.complited === true;
-              } else if (filter === "Uncomplited") {
+              } else if (filter === "Unfinished") {
                 return item.complited === false;
               } else {
                 return item;

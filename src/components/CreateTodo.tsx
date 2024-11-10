@@ -44,7 +44,11 @@ const CreateTodo: FC<CreateTodoProps> = ({ action }) => {
   return (
     <>
       <Tooltip title="Create new Todo" arrow TransitionComponent={Zoom}>
-        <IconButton aria-label="add" onClick={handleClickOpen}>
+        <IconButton
+          aria-label="add"
+          onClick={handleClickOpen}
+          className="thrid-step"
+        >
           <AddRoundedIcon />
         </IconButton>
       </Tooltip>
