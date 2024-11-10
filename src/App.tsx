@@ -1,64 +1,16 @@
-import Header from "./components/Header";
 import { Box, InputAdornment, Stack, TextField } from "@mui/material";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { ITodo } from "./types";
+import { steps } from "./steps";
+import Header from "./components/Header";
 import Todo from "./components/Todo";
 import CreateTodo from "./components/CreateTodo";
-import Joyride, { Step } from "react-joyride";
-import { ChangeEvent, useState } from "react";
 import ToggleButtons from "./components/ToggleButtons";
-
-const steps: Step[] = [
-  {
-    target: ".first-step",
-    content:
-      "This is the field for searching for your tasks. You can search for tasks by their name.",
-  },
-  {
-    target: ".second-step",
-    content: "And this is the task filtering panel.",
-  },
-  {
-    target: ".second-all-step",
-    content: "You can display all tasks.",
-  },
-  {
-    target: ".second-complited-step",
-    content: "And you can display only complete tasks.",
-  },
-  {
-    target: ".second-unfinished-step",
-    content: "Or just unfinished tasks.",
-  },
-  {
-    target: ".thrid-step",
-    content: "To create a new task, click on this button.",
-  },
-];
+import Joyride from "react-joyride";
+import { ChangeEvent, useState } from "react";
 
 function App() {
-  const Todos: ITodo[] = [
-    {
-      id: 1,
-      title: "Go to shop",
-      deadline: new Date(2024, 10, 11),
-      complited: false,
-    },
-    {
-      id: 2,
-      title: "Do my home work",
-      deadline: new Date(2024, 8, 8),
-      complited: false,
-    },
-    {
-      id: 3,
-      title: "Watch Arcane",
-      deadline: new Date(2024, 9, 12),
-      complited: true,
-    },
-  ];
-
-  const [todos, setTodos] = useState(Todos);
+  const [todos, setTodos] = useState<ITodo[]>([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<string>("All");
 
@@ -107,7 +59,6 @@ function App() {
         styles={{
           options: {
             zIndex: 10000,
-            backgroundColor: "#f0f0f0",
             primaryColor: "#00aaff",
           },
         }}
@@ -137,7 +88,7 @@ function App() {
             }}
           />
           <Stack direction={"row"} spacing={{ sx: 1, sm: 5 }}>
-            <ToggleButtons filter={filter} action={handleFilter}/>
+            <ToggleButtons filter={filter} action={handleFilter} />
             <CreateTodo action={createTodo} />
           </Stack>
         </Stack>

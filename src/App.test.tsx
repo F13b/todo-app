@@ -1,9 +1,25 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import Todo from "./components/Todo";
+import userEvent from "@testing-library/user-event";
+import App from "./App";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("App", () => {
+  test("Checkbox click", async () => {
+    const handleClick = () => {};
+    render(
+      <Todo
+        todo={{ id: 1, title: "Title", deadline: new Date(), complited: false }}
+        action={handleClick}
+      />
+    );
+    const checkbox = screen.getByRole("checkbox");
+    expect(checkbox).not.toBeChecked();
+    await userEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
+  });
+
+  test('Search', async () => {
+    render(<App/>)
+    
+  })
 });
