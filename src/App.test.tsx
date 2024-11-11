@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import Todo from "./components/Todo";
 import userEvent from "@testing-library/user-event";
-import App from "./App";
 
 describe("App", () => {
   test("Checkbox click", async () => {
@@ -17,9 +16,4 @@ describe("App", () => {
     await userEvent.click(checkbox);
     expect(checkbox).toBeChecked();
   });
-
-  test('Search', async () => {
-    render(<App/>)
-    
-  })
 });
